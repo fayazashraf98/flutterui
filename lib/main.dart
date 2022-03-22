@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterui/screens/SignupScreen.dart';
+import 'package:flutterui/screens/SpleshScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Application",
-      home: SignupScreen(),
+      home: spleshScreen(),
     );
   }
 }

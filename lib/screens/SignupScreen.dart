@@ -48,14 +48,22 @@ class SignupScreen extends StatelessWidget {
           SizedBox(
             height: 11,
           ),
-          appbuttons(
-              label: "SignUp",
-              onPress: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => LoginScreen()));
-              }),
+          GestureDetector(
+            onTap: () {
+              onpress(context);
+            },
+            child: appbuttons(
+                label: "SignUp",
+                onPress: () {
+                  onpress(context);
+                }),
+          ),
         ]),
       ),
     );
   }
+}
+
+onpress(BuildContext context) {
+  Navigator.of(context).push(MaterialPageRoute(builder: (_) => LoginScreen()));
 }

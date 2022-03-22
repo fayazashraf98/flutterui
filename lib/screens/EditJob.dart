@@ -1,16 +1,30 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutterui/screens/AddJob.dart';
 
 import '../appbuttons.dart';
 import '../textField.dart';
-import 'JobListing.dart';
+import 'job_listing.dart';
 
-class EditJob extends StatelessWidget {
-  const EditJob({Key? key}) : super(key: key);
+class EditJob extends StatefulWidget {
+  String postiontext = "";
+  String desctext = "";
+  EditJob({required this.postiontext, required this.desctext});
+
+  @override
+  State<EditJob> createState() => _EditJobState(postiontext, desctext);
+}
+
+class _EditJobState extends State<EditJob> {
+  String postiontext;
+  String desctext;
+  _EditJobState(this.postiontext, this.desctext);
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController job_position_title = TextEditingController()
+      ..text = postiontext;
+    TextEditingController desc_position_title = TextEditingController()
+      ..text = desctext;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xff191720),
@@ -22,8 +36,8 @@ class EditJob extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => JobLiListing()));
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => listjobs()));
                   },
                   icon: Icon(
                     Icons.arrow_back_ios_new_outlined,
@@ -51,11 +65,9 @@ class EditJob extends StatelessWidget {
                   border: Border.all(color: Color(0xff5D5D67), width: 1),
                   borderRadius: BorderRadius.circular(15)),
               child: TextField(
-                style: TextStyle(color: Colors.white, fontSize: 15),
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Flutter Developer",
-                    hintStyle: TextStyle(fontSize: 15, color: Colors.white)),
+                controller: job_position_title,
+                style: const TextStyle(fontSize: 15, color: Colors.white),
+                decoration: const InputDecoration(border: InputBorder.none),
               ),
             ),
             SizedBox(
@@ -66,24 +78,36 @@ class EditJob extends StatelessWidget {
               height: 300,
               decoration: BoxDecoration(
                 color: Color(0xff1E1C24),
-                border: Border.all(color: Color(0xff5D5D67), width: 1),
+                border:
+                    Border.all(color: Color.fromRGBO(93, 93, 103, 1), width: 1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis eget in lectus sit amet pellentesque eleifend tellus neque. Praesent sagittis ultricies volutpat turpis hendrerit nulla ultricies massa elementum. Convallis gravida enim erat enim commodo praesent malesuada facilisis. Potenti orci amet, dui nunc aliquet pellentesque sit nibh scelerisque.",
-                style: TextStyle(color: Colors.white, fontSize: 18),
+              child: TextField(
+                controller: desc_position_title,
+                maxLines: 11,
+                style: const TextStyle(fontSize: 15, color: Colors.white),
+                decoration: const InputDecoration(border: InputBorder.none),
               ),
             ),
             Spacer(),
-            appbuttons(
-                label: "Update Job",
-                onPress: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => JobLiListing()));
-                }),
+            GestureDetector(
+              onTap: () {
+                var data = Methodtitle(
+                    job_position_title.text, desc_position_title.text);
+                Navigator.pop(context, data);
+              },
+              child: appbuttons(label: "Update Job", onPress: () {}),
+            )
           ],
         ),
       ),
     );
   }
+}
+
+class EditData {
+  final positionTitle;
+  final positionDescr;
+
+  EditData(this.positionTitle, this.positionDescr);
 }

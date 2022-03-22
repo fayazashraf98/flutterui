@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterui/screens/JobListing.dart';
+import 'package:flutterui/screens/job_listing.dart';
 import 'package:flutterui/screens/SignupScreen.dart';
 
 import '../appbuttons.dart';
@@ -49,14 +49,22 @@ class LoginScreen extends StatelessWidget {
           SizedBox(
             height: 11,
           ),
-          appbuttons(
-              label: "Sign in",
-              onPress: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => JobLiListing()));
-              }),
+          GestureDetector(
+            onTap: () {
+              onpress(context);
+            },
+            child: appbuttons(
+                label: "Sign in",
+                onPress: () {
+                  onpress(context);
+                }),
+          )
         ]),
       ),
     );
   }
+}
+
+onpress(BuildContext context) {
+  Navigator.of(context).push(MaterialPageRoute(builder: (_) => listjobs()));
 }
